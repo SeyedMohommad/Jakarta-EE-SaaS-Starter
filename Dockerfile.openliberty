@@ -1,0 +1,4 @@
+# Open Liberty with features enabled
+FROM openliberty/open-liberty:kernel-slim-java17-openj9-ubi
+COPY --chown=1001:0 target/jakartaee-saas-starter.war /config/dropins/
+# You may mount a server.xml that defines the JDBC dataSource 'jdbc/PostgresDS' and features.
