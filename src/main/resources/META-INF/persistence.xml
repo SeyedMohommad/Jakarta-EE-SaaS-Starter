@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.1">
   <persistence-unit name="appPU" transaction-type="JTA">
-    <jta-data-source>jdbc/PostgresDS</jta-data-source>
+    <jta-data-source>java:global/jdbc/H2DS</jta-data-source>
+
     <class>dev.saasstarter.app.model.UserAccount</class>
     <class>dev.saasstarter.app.model.Project</class>
     <class>dev.saasstarter.app.model.Task</class>
     <class>dev.saasstarter.app.model.Comment</class>
+
     <properties>
-      <property name="jakarta.persistence.schema-generation.database.action" value="none"/>
+      <property name="jakarta.persistence.jdbc.url"
+                value="jdbc:h2:mem:saas;MODE=LEGACY;DB_CLOSE_DELAY=-1"/>
+
+      <!-- Dev mode -->
+      <property name="jakarta.persistence.schema-generation.database.action"
+                value="drop-and-create"/>
+
       <property name="hibernate.show_sql" value="false"/>
       <property name="hibernate.format_sql" value="true"/>
     </properties>
