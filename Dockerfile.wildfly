@@ -1,9 +1,7 @@
-# Build WAR and deploy on WildFly
 FROM quay.io/wildfly/wildfly:30.0.1.Final
-# Add PostgreSQL driver
+
 USER root
-RUN microdnf install -y curl unzip && microdnf clean all
-RUN curl -L -o /opt/jboss/postgresql.jar https://repo1.maven.org/maven2/org/postgresql/postgresql/42.7.4/postgresql-42.7.4.jar
+RUN microdnf install -y unzip && microdnf clean all
 USER jboss
+
 COPY target/jakartaee-saas-starter.war /opt/jboss/wildfly/standalone/deployments/
-# Datasource can be configured via CLI or env in compose (see compose file)
