@@ -20,10 +20,8 @@
     <version.microprofile>6.0</version.microprofile>
     <version.smallrye.jwt>4.5.1</version.smallrye.jwt>
     <version.flyway>10.15.0</version.flyway>
-    <version.postgresql>42.7.4</version.postgresql>
     <version.junit>5.10.2</version.junit>
     <version.restassured>5.4.0</version.restassured>
-    <version.testcontainers>1.20.2</version.testcontainers>
     <version.jackson>2.17.2</version.jackson>
     <project.build.outputTimestamp>2025-01-01T00:00:00Z</project.build.outputTimestamp>
   </properties>
@@ -40,6 +38,7 @@
     </dependencies>
   </dependencyManagement>
 
+
   <dependencies>
     <!-- Jakarta EE & MicroProfile APIs provided by the runtime -->
     <dependency>
@@ -48,6 +47,7 @@
       <version>${version.jakartaee}</version>
       <scope>provided</scope>
     </dependency>
+
     <dependency>
       <groupId>org.eclipse.microprofile</groupId>
       <artifactId>microprofile</artifactId>
@@ -56,48 +56,27 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- JWT builder (portable, runtime-neutral) -->
+    <!-- JWT builder -->
     <dependency>
       <groupId>io.smallrye</groupId>
       <artifactId>smallrye-jwt-build</artifactId>
-      <version>${version.smallrye.jwt}</version>
+      <version>4.6.2</version>
     </dependency>
 
-    <!-- Flyway for DB migrations -->
+
+    <!-- H2 driver (فقط یک‌بار؛ تکراری نباشد) -->
     <dependency>
-      <groupId>org.flywaydb</groupId>
-      <artifactId>flyway-core</artifactId>
-      <version>${version.flyway}</version>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>2.3.232</version>
+      <scope>runtime</scope>
     </dependency>
 
-
-    <!-- NEW: Flyway database support for PostgreSQL -->
-    <dependency>
-      <groupId>org.flywaydb</groupId>
-      <artifactId>flyway-database-postgresql</artifactId>
-      <version>${version.flyway}</version>
-    </dependency>
-
-    <!-- JDBC driver (compile-time; runtime loads it from Docker image too) -->
-    <dependency>
-      <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-      <version>${version.postgresql}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <version>2.0.13</version>
-      <scope>test</scope>
-    </dependency>
-
-
-    <!-- BCrypt for password hashing -->
+    <!-- BCrypt -->
     <dependency>
       <groupId>at.favre.lib</groupId>
       <artifactId>bcrypt</artifactId>
-      <version>0.10.2</version>
+      <version>0.9.0</version>
     </dependency>
 
     <!-- Test deps -->
@@ -113,13 +92,8 @@
       <version>${version.restassured}</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.testcontainers</groupId>
-      <artifactId>postgresql</artifactId>
-      <version>${version.testcontainers}</version>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
+
 
   <build>
     <plugins>
