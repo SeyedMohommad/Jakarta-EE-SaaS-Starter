@@ -1,35 +1,10 @@
 services:
-  db:
-    image: postgres:16-alpine
-    environment:
-      POSTGRES_DB: appdb
-      POSTGRES_USER: app
-      POSTGRES_PASSWORD: app
-    ports: [ "5432:5432" ]
-    volumes: [ dbdata:/var/lib/postgresql/data ]
-
   app:
     build:
       context: .
       dockerfile: Dockerfile.payara
-    depends_on: [ db ]
-    environment:
-      # MicroProfile Config for JDBC via JNDI will be provided by app server configuration.
-      # For Payara Micro you can pass asadmin commands to create datasource:
-      PAYARA_ARGS: >-
-        --addjdbcpool postgresPool
-        --datasourceUser app
-        --datasourcePassword app
-        --datasourceUrl jdbc:postgresql://db:5432/appdb
-        --addjdbcresource jdbc/PostgresDS
-    ports: [ "8080:8080" ]
-    # Add this header to all API calls: X-Tenant-ID: demo
-    # Then: POST /api/auth/login {"email":"user@demo.local","password":"demo"}
+    ports: ["8080:8080"]
 
   mailhog:
     image: mailhog/mailhog
     ports: ["8025:8025"]
-    # optional; not used in v1 yet
-
-volumes:
-  dbdata:
